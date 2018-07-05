@@ -45,12 +45,14 @@ The analysis on mass and widespread human activities draws attention of more and
 The correlation between taxi trace data and social activity dynamics has many promising applications: (1) It can help governments to learn city dynamics and make the city planning more reasonable. (2) It can assist taxi drivers to learn driving strategies to find passengers in an optimal way. (3) It can help passengers to find out where they should wait for a taxi, and how long they will probably take on waiting.
 Motivated by these potential applications, this paper attempts to analyze get-on/off amounts using a city-scale realworld taxi GPS data set, and to establish the relationship between taxi GPS data and regions’ social functions. The contributions are in two-fold: (1) In a city-scale, we show that the get-on/off amount could depict social activity intensity of a city. (2) After qualitative analysis, we find an approach to recognize regions’ social function with temporal variation patterns of get-on/off amount. As far as we know, our work is the first time to measure social functions of regions using taxi GPS data.
 
+Taxi traces can help better understand the urban mobility as it contains the origins and destinations of the passengers with greater accuracy compared with other public transportations e.g. bus, metro. It is a unique transportation service in a way that it is not bounded to a pre-determined path or pick-up and drop-off locations. On the other hand, it is also important to consider the reasons that people use taxis instead of other public transportations. The reasons could possibly be the lack of public transportation alternatives, the urgency of the trip, the amount of luggages, or even simple commodity.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{RELATED WORKS}%第二章
 
-User trace data (e.g. GSM trace and Wi-Fi data) and traffic trace data are two main kinds of trace data used for social mobile analysis. GSM data in phones can be used for localization, thus, it can be used to analyze crowd activity and human activity pattern[1], [2]. Wi-Fi network activity data could be used to analyze indoor human activity, Calabrease et.al. [3] use MIT Wi-Fi data to cluster the buildings in MIT campus and analyze activity strength in buildings.
-Taxi and shared bicycle data are important traffic trace data for social analysis. Previous research mainly tried to use the data only for traffic analysis. Many researches before developed a statistical physics approach to build a mathematical model using differential equations [4], [5]. Popular models include fluid-dynamical theories, kinetic theories, car-following theories, coupled-map lattice models, NagelSchreckberg cellular automata model and extensions of the NaSch model; Chowdury et.al. [6] gave a review of these models.
-Recently, traffic data is considered in social activity studies. Ge et.al. [7] studied taxi drivers’ pick-up behavior using graph theory view and recommend the statistical best route for taxi drivers. Shared bicycle is also an important traffic service in some cities; people can cluster stations according to the variation of the amount of left bicycles. Such variation is also predictable by probability graphical model according to Froehlich et.al. [8] Kaltenbrunner [9] did a similar work but use an ARMA (Auto-Regressive and Moving Average) model for prediction.
+User trace data (e.g. GSM trace and Wi-Fi data) and traffic trace data are two main kinds of trace data used for social mobile analysis. GSM data in phones can be used for localization, thus, it can be used to analyze crowd activity and human activity pattern. Wi-Fi network activity data could be used to analyze indoor human activity, Calabrease et.al.  use MIT Wi-Fi data to cluster the buildings in MIT campus and analyze activity strength in buildings.
+Taxi and shared bicycle data are important traffic trace data for social analysis. Previous research mainly tried to use the data only for traffic analysis. Many researches before developed a statistical physics approach to build a mathematical model using differential equations . Popular models include fluid-dynamical theories, kinetic theories, car-following theories, coupled-map lattice models, NagelSchreckberg cellular automata model and extensions of the NaSch model; Chowdury et.al.  gave a review of these models.
+Recently, traffic data is considered in social activity studies. Ge et.al.  studied taxi drivers’ pick-up behavior using graph theory view and recommend the statistical best route for taxi drivers. Shared bicycle is also an important traffic service in some cities; people can cluster stations according to the variation of the amount of left bicycles. Such variation is also predictable by probability graphical model according to Froehlich et.al.  Kaltenbrunner  did a similar work but use an ARMA (Auto-Regressive and Moving Average) model for prediction.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{TAXI GPS DATASET AND PREPROCESSING}%第三章
@@ -61,7 +63,7 @@ Our dataset contains over than 10 million taxi-GPS samples from August to Decemb
 
 The area of study encompasses the Lisbon council, consisting of 53 parishes, an area around 110 km2, with a population of 800,000. The urban area growth in several layers around the city downtown, the central point, which includes the oldest and smallest parishes with greatest population density, touristic, historic and commercial areas, and the interface for several public transportation services (bus, metro, train and ferry).  In the marginal avenue around Tagus River, there are touristic, recreational and commercial areas. Moving away from the city center we find greater parishes with lower population density, characterized by residential areas around business areas. Major infrastructures (e.g. airport, industrial facilities) are located in the city’s periphery. For the analysis, we model the Lisbon map with grids of 0.5x0.5 km2. 
 
-The overall taxi service distribution in Lisbon can be seen in Fig. 1 where some major locations such as the city downtown (A), the airport (B), and the train station (C) are identified.  
+The overall taxi service distribution in Lisbon can be seen in Fig.\ref{fig:my_png_1} where some major locations such as the city downtown (A), the airport (B), and the train station (C) are identified.  
 
 \begin{figure}[htbp]
     \centering
@@ -107,7 +109,7 @@ The taxi dataset used in this paper comes from the Hangzhou City Traffic Bureau,
 \end{itemize}
 
 \subsection{Data Cleaning and Preprocessing}
-Here we describe our data cleaning process. Based on our original dataset, a distribution of the trip distances is shown in Fig. 3. We notice that that the realistic longest trips could be around 22km (one side of the city to the other), we thus discarded trips with distance greater than 30km. On the other hand, the original data also contains a great amount of trips with less than 200m (14.94\% of the all trips), which seems unrealistic. Therefore, in addition, we discarded these small trips from our analysis.  
+Here we describe our data cleaning process. Based on our original dataset, a distribution of the trip distances is shown in Fig.\ref{fig:my_png_3}. We notice that that the realistic longest trips could be around 22km (one side of the city to the other), we thus discarded trips with distance greater than 30km. On the other hand, the original data also contains a great amount of trips with less than 200m (14.94\% of the all trips), which seems unrealistic. Therefore, in addition, we discarded these small trips from our analysis.  
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=7cm]{fig/png3.png}
@@ -138,7 +140,7 @@ Get-on/off amount information is important in taxi traces data because it can de
 Get-on/off amounts’ temporal variation contains rich information regarding to urban and regional social dynamics. We find that daily get-on/off amount in the city varies according to citizens’ daily social activity intensity. Total amount of geton/offs in different days can highlight important social activity in some uncommon days. Moreover, regions with different social function show very different pattern of get-on/offs.
 
 \subsection{City-wide Dynamics Analysis} For the city-wide statistics, the total get-on/off amount variation over days can reflect social meaning of some uncommon days such as holiday and school-open days.
-The total get-on/off amount in different days can highlight uncommon days that have important social activities (Fig. 1). At the peak in August 2009, schools open and students come back to or freshman enters the school. During the Spring Festival, people may stay at home and seldom travel around by taxi. And, the decrease in the National Day is caused by traffic jam, since too many people may go outside during that day.
+The total get-on/off amount in different days can highlight uncommon days that have important social activities (Fig. \ref{fig:my_label_1}). At the peak in August 2009, schools open and students come back to or freshman enters the school. During the Spring Festival, people may stay at home and seldom travel around by taxi. And, the decrease in the National Day is caused by traffic jam, since too many people may go outside during that day.
 
 \begin{figure}[htbp]
     \centering
@@ -148,11 +150,11 @@ The total get-on/off amount in different days can highlight uncommon days that h
 \end{figure}
 
 \subsection{Regional Social Functions Analysis}Besides the city-wide analysis, statistics of region-wide in a city may also exhibit patterns of human activity in the area. By qualitatively analyzing get-on/off amount in several time periods in a day, we observe that regions with different social function have their distinctive temporal variation patterns.
-This paper preliminary considers three typical categories of regions: (1) coach/train stations; (2) entertainment districts; (3) scenic spots. Fig. 2 illustrates: • Train stations: Train stations are very hot in almost all the time over the whole day.
-
+This paper preliminary considers three typical categories of regions: (1) coach/train stations; (2) entertainment districts; (3) scenic spots. Fig. \ref{fig:my_label_2} illustrates:
 
 \begin{itemize}
 
+\item Train stations: Train stations are very hot in almost all the time over the whole day.
 \item Scenic spots: Tourists often go to scenic spots only during the daytime.
 \item Entertainment districts: People usually go for entertainment mainly at night; few people will go there at dawn and seldom any passengers travel there in the morning.
 
@@ -160,7 +162,7 @@ This paper preliminary considers three typical categories of regions: (1) coach/
 
 The analysis above confirms relationship between regional taxi get-on/off amount and social activity in a region. The features of three types of regions we got by qualitative analysis conform to common sense. They show that taxi passengers are a kind of representative samples from citizens, and taxi get-on/off amount depicts human activity strength in a region. Besides, these examples show very different features of geton/off amount temporal variation for different types of regions, and hence the feasibility of recognizing social function of regions using temporal variation of get-on/off amount.
 
-\subsection{Trip distance distribution}After the data cleaning process, we examine the trip distance distribution (Fig. 5) and find that we can fit it with a Gamma distribution with $ \alpha =2.7 $ and $\beta =1.2 $ as following:
+\subsection{Trip distance distribution}After the data cleaning process, we examine the trip distance distribution (Fig.\ref{fig:my_png_5}) and find that we can fit it with a Gamma distribution with $ \alpha =2.7 $ and $\beta =1.2 $ as following:
  \begin{equation}
  	f_{\alpha,\beta}(x)=\frac{1}{\Gamma(\alpha)\beta^{\alpha}}x^{\alpha-1}e^{\frac{\alpha}{\beta}}
     \label{eq:quadratic}
@@ -182,13 +184,10 @@ If the first interval is removed, we can represent it with an exponential distri
     \label{fig:my_png_6}
 \end{figure}
 
-\subsection{Driver strategies}We further analyze taxi driver strategies with respect to the income. A taxi driver may choose to pick up customers at a particular location (e.g. airport), or drive around the city to find passengers at random places, or combine the two approaches. We find that only 2.37\% of the taxis chose to stay at the same location for more than 50\% of the time. The airport seems to be one of the main pick-up and drop-off locations. Table 1 shows the statistics of the five best drivers according to the total number of trips and income (with an extra last entry for a comparison with Table 2 in a later discussion). We observe low percentages of trips from the airport from these top drivers. Table 2 shows the five best drivers according to the number of trips from the airport. These show that the taxi driver can improve the revenue by adopting a strategy of driving around the city instead of targeting one particular place like the airport. 
+\subsection{Driver strategies} We find that the majority of the taxi drivers appear to be using combined strategies – mainly driving around the city and in certain time periods staying at a fixed location. This phenomenon can be observed in the Fig. \ref{fig:my_png_7} where there is an increase of trips from the airport between 6 a.m. and 8 a.m. and elsewhere in other time slots. On the other hand, in the same period there is a significant decrease of trips from the remaining locations.  
 
 
-We find that the majority of the taxi drivers appear to be using combined strategies – mainly driving around the city and in certain time periods staying at a fixed location. This phenomenon can be observed in the Fig. 7 where there is an increase of trips from the airport between 6 a.m. and 8 a.m. and elsewhere in other time slots. On the other hand, in the same period there is a significant decrease of trips from the remaining locations.  
-
-
-To confirm our observation, we examine mobile phone data collected from GSM networks. The GSM data consists of samples from November and December 2009 providing statistical measures of carried load (Erlang) with one-hour period. In Fig. 8, we can observe that immediately after the taxi rush hour there is an increase of the GSM network usage in the airport, while the mobile phone activities in other locations of the city begins to arise three hours later. This is an indication of the possible taxi passengers at airport. 
+To confirm our observation, we examine mobile phone data collected from GSM networks. The GSM data consists of samples from November and December 2009 providing statistical measures of carried load (Erlang) with one-hour period. In Fig. \ref{fig:my_png_8}, we can observe that immediately after the taxi rush hour there is an increase of the GSM network usage in the airport, while the mobile phone activities in other locations of the city begins to arise three hours later. This is an indication of the possible taxi passengers at airport. 
 
 \begin{figure}[htbp]
     \centering
@@ -221,6 +220,18 @@ Section IV confirms qualitatively the relationship between regional get-on/off a
     \label{fig:my_label_2}
 \end{figure}
 \subsection{Data Labeling} For data preparation, we find three taxi drivers to label typical regions of each category with pure social function. We finally get 76 regions with pure social function in total and use them for further analysis. The labeled regions include 37 regions near train/coach station, 27 entertainment districts, and 12 scenic spots.
+
+\subsection{NTF: Mobility patterns}Since our data tensor has three dimensions, the decomposition returned three different components which determine the scale of mobility flow in each dimension for every cluster: time (hour of week) and space (departure and arrival tracts). Thus, individual clusters represent groups of taxi rides in different places at different periods of time in a weekday-hour scale.
+
+The time component is shown in Figure 1a, whereas location components for pickups (departures) and drop-offs (arrivals) are shown on the right-hand side of Fig. \ref{fig:my_png_9}. Due to space limitations we show only the first three clusters. From Fig. \ref{fig:my_png_9}, it can be observed that all clusters show strong daily regularities, which can be assumed as daily routines in human mobility behavior. Clusters C1,C2,C4,C5 andC7 capture all behaviors on workdays (almost all peaks are within the first five days of the week), whereas clusterC3 is strongly dominated by weekends, specially by Friday and Saturday nights. Cluster C6 on the other hand, shows a more periodical behavior across the entire week, however its peaks are around 6pm from Monday to Saturday and 2pm on Saturdays and Sundays.
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics{fig/png9.png}
+    \caption{Temporal distribution of clusters}
+    \label{fig:my_png_9}
+\end{figure}
+
 \subsection{Recognition of Social Function}Two types of features are considered: coarse-grained feature and fine-grained feature. Given n days data, the coarse-grained feature is a n-dimension vector with daily total amount of geton/off as element. The fine-grained feature is a 4n-dimension vector with four get-on/off numbers for four time periods in each day: (a) 6:30 a.m. to 8:30 a.m.; (b) 9:00 a.m. to 3:00 p.m.; (c) 7:00 p.m. to 9:00 p.m.; (d) 11:00 p.m. to 1:00 a.m. These four time periods are extracted according to the largest variance of amount. The recognition process is as follows:
 
 \begin{itemize}
@@ -228,14 +239,22 @@ Section IV confirms qualitatively the relationship between regional get-on/off a
 \item Feature Vector: The feature vectors are defined as $ x^{i}_{d} $ and $ x^{i}_{u} $ which represent the amount of get-on or get-off in the $i$th region $D_i$ with elements $ x^{i}_{u}(j) $ and $ x^{i}_{d}(j) (j=1,2,...) $.
 \item Normalization: Normalization is to centralize the feature vector $ x^{i}_{u}(j)=x^{i}_{u}(j)-\Sigma_{j}x^{i}_{u}(j)/n $, and $ x^{i}_{d}(j)=x^{i}_{d}(j)-\Sigma_{j}x^{i}_{d}(j)/n $.
 \item Similarity definition: We define similarity $ s_{i,j} $ between each two regions $ D_i $ and $ D_j $: $ s_{i,j}=max(cos(x^{i}_{u},x^{j}_{u}),cos(x^{i}_{d},x^{j}_{d})) $, where $ cos(x^i,x^j) $ is the cosine similarity of the two normalized vectors: $ x^i $ and $ x^j $.
-\item Agglomerative clustering[10]: Agglomerate samples with enough large similarity (similarity threshold) into the same cluster. Some samples may be not much similar (similarity below the threshold) to the clusters and thus belong to none of the clusters. These samples are classified according to the most similar sample in clusters.
+\item Agglomerative clustering: Agglomerate samples with enough large similarity (similarity threshold) into the same cluster. Some samples may be not much similar (similarity below the threshold) to the clusters and thus belong to none of the clusters. These samples are classified according to the most similar sample in clusters.
 \item Recognition: Test samples are clustered together with training samples as above. Label the test sample according to voting by the number of training sample in the same cluster.
 
 \end{itemize}
 
 \subsection{Experimental Result and Analysis}
 
-\subsubsection{Feature vector visualization}The coarse-grained feature vector extracted from one year data is visualized in Fig. 3
+\subsubsection{Feature vector visualization}The coarse-grained feature vector extracted from one year data is visualized in Fig. \ref{fig:my_label_3}
+
+\begin{itemize}
+\item Scenic spots. They show very different pattern between holidays and weekdays, they have much more passengers in holiday than weekdays (Fig. \ref{fig:my_label_3}a).
+\item Train/coach station. Get-on/off amount of stations highlights some uncommon time points instead of difference between workdays and weekdays (Fig. \ref{fig:my_label_3}b).
+\item Entertainment districts. They are similar to scenic spots but the variance between the peaks and the troughs is small (Fig. \ref{fig:my_label_3}c).
+
+\end{itemize}
+
 \begin{figure}[htbp]
     \centering
     \subfigure[]{
@@ -251,14 +270,7 @@ Section IV confirms qualitatively the relationship between regional get-on/off a
     \label{fig:my_label_3}
 \end{figure}
 
-\begin{itemize}
-
-\item Train/coach station. Get-on/off amount of stations highlights some uncommon time points instead of difference between workdays and weekdays (Fig. 3b).
-\item Entertainment districts. They are similar to scenic spots but the variance between the peaks and the troughs is small (Fig. 3c).
-
-\end{itemize}
-
-We also reduce the dimension of feature vectors by the principal component analysis and visualize the regions in the 3D-Eigenspace. In Fig. 4, samples with different region categories scatter apart from each other.
+We also reduce the dimension of feature vectors by the principal component analysis and visualize the regions in the 3D-Eigenspace. In Fig. \ref{fig:my_label_4}, samples with different region categories scatter apart from each other.
 
 \begin{figure}[thbp]
     \centering
@@ -266,10 +278,6 @@ We also reduce the dimension of feature vectors by the principal component analy
     \caption{Illustration of the labeled samples of three typical region categories in the 3D Eigenspace.}
     \label{fig:my_label_4}
 \end{figure}
-
-
-\subsubsection{ Recognition result and analysis}The recognition result is listed in Table I. Our method can recognize social function of the regions precisely. Moreover, there are some interesting conclusions we can get from this result: The tow types of features can be recognized more precisely with more data added. The recognition accuracy using coarse-grained feature grows quickly 5, while the accuracy using fine-grained feature changes slowly.
-
 \begin{figure}[htbp]
     \centering
     \includegraphics{fig/f7.png}
@@ -277,13 +285,54 @@ We also reduce the dimension of feature vectors by the principal component analy
     \label{fig:my_label_5}
 \end{figure}
 
+
+\subsubsection{ Recognition result and analysis}The recognition result is listed in Table I. Our method can recognize social function of the regions precisely. Moreover, there are some interesting conclusions we can get from this result: The tow types of features can be recognized more precisely with more data added. The recognition accuracy using coarse-grained feature grows quickly 5, while the accuracy using fine-grained feature changes slowly.
+
 \begin{itemize}
 \item For short time-span data (one week and one month), fine grained feature vector can be recognized more precisely since it considers different time periods during a day. For long time-span data (one year), coarse-grained feature vector has higher recognition accuracy.
 \item The coarse-grained feature vector extracted from one year data can be best recognized. The average recognition accuracy using this feature is 94.44\%.
 
 \end{itemize}
 
+\begin{table*}[h] %开始一个表格environment，表格的位置是h,here。
+\centering
+\caption{RECOGNITION ACCURACY BY VARYING FEATURE TYPES AND TRAINING DATA AMOUNT} %显示表格的标题
+\begin{tabular}{c|c|c|c|c|c}
+	\hline 
+	& Data for & Train/Coach & Entertainment & Scenic & Average \\ 
+	\hline 
+	Feature Types &  &  &  &  &  \\ 
+	& Training & Station & Districts & Spots & Accuracy \\ 
+
+	\hline 
+	 & one week & 53.85\% & 37.79\% & 26.02\% & 44.00\% \\ 
+
+	Coarse-grained feature & one month & 76.65\% & 37.40\% & 65.42\% & 61.94\% \\ 
+ 
+	& one year & 100.00\% & 84.62\% & 90.91\% & 94.44\% \\ 
+	\hline 
+	& one week & 82.37\% & 89.43\% & 72.50\% & 83.32\% \\ 
+
+	Fine-grained feature & one month & 84.49\% & 86.56\% & 68.53\% & 82.68\% \\ 
+
+	& one year & 88.89\% & 92.31\% & 81.82\% & 89.04\% \\ 
+	\hline 
+
+\end{tabular} 
+\end{table*}
+
 The results show that regions’ social function can be recognized correctly and these regions have clear temporal patterns. To sum up, by recognition, we reveal that, from a quantitative view, social function and regional get-on/off amount are indeed tightly related.
+
+\section{DISCUSSION}
+In this work, we have shown that spatio-temporal dynamics in human behavior can potentially be better explained by considering parts of the data separately. We identified clusters of taxi rides and utilized openly available data from the Web to explain them. However, there are some aspects that need to be taken into account for the current approach.
+
+\begin{itemize}
+
+\item Clustering method. In this paper, we use HypTrails to explain clusters obtained by Non-negative tensor factorization. While NTF is a reliable and established method in this line of research, the clustering approach is exchangeable and could be replaced by any other clustering technique.
+\item State space. Since our approach requires a discrete state space, it is necessary to aggregate pick-up and drop-off locations of the taxi rides in an area. The choice of these aggregational units (i.e., the states in our state space) can potentially influence the results. This is known in literature as the Modifiable areal unit problem. In this paper, we chose tracts for the level of our analysis as it allowed for the direct integration of information from census data. Experiments with different state spaces are subjects of future work.
+\item Multiple dimensions. In this paper, we cluster taxi trips with respect to time, pick-up and drop-off location. However, our approach allows to extend these by additional information, e.g., number of passengers. In this case, a higher dimensional tensor would be used by NTF, but the resulting clusters could also be explained with help of the HypTrails approach. The scale of these dimensions could also suggest more fine-grained mobility behaviors. For instance, in this work we defined the time dimension as all 168 hours of a week in order to distinguish patterns on workdays and weekends.
+\item Normalization. The external online data we use for constructing mobility hypotheses might not be evenly distributed across all tracts. Therefore the HypTrails approach normalizes each belief matrix to be able to compare different hypotheses to each other.
+\end{itemize}
 
 \section{CONCLUSION AND FUTURE WORK}%第六章
 This paper investigates the relationship between regional get-on/off amount and regions’ social function. Firstly, from a city scale, the get-on/off amount variation in a day or among different days conforms to social activity intensity of citizens. Secondly, from a qualitative view, regional get-on/off amount daily variations are very different in regions with different social functions.
@@ -303,11 +352,40 @@ Analyzing the taxi traces from Lisbon, Portugal during a period of five months, 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{thebibliography}{99}
 
-\bibitem{c1} G. O. Young, ÒSynthetic structure of industrial plastics (Book style with paper title and editor),Ó 	in Plastics, 2nd ed. vol. 3, J. Peters, Ed.  New York: McGraw-Hill, 1964, pp. 15Ð64.
-\bibitem{c2} W.-K. Chen, Linear Networks and Systems (Book style).	Belmont, CA: Wadsworth, 1993, pp. 123Ð135.
-\bibitem{c3} H. Poor, An Introduction to Signal Detection and Estimation.   New York: Springer-Verlag, 1985, ch. 4.
-\bibitem{c4} B. Smith, ÒAn approach to graphs of linear forms (Unpublished work style),Ó unpublished.
-\bibitem{c5} E. H. Miller, ÒA note on reflector arrays (Periodical styleÑAccepted for publication),Ó IEEE Trans. Antennas Propagat., to be publised.
+\bibitem{} M. Becker, P. Singer, F. Lemmerich, A. Hotho, D. Helic, and M. Strohmaier. Photowalking the city: Comparing hypotheses about urban photo trails on Flickr. In Int. Conference on Social Informatics, 2015.
+\bibitem{} C. Brettell and J. Hollifield. Migration Theory: Talking Across Disciplines. Taylor \& Francis, 2014.
+\bibitem{} G. Chen, X. Jin, and J. Yang. Study on spatial and temporal mobility pattern of urban taxi services. In Int. Conference On Intelligent Systems and Knowledge Engineering, 2010.
+\bibitem{} A. Chua, E. Marcheggiani, L. Servillo, and A. V. Moere. FlowSampler: Visual Analysis of Urban Flows in Geolocated Social Media Data. In Int. Conference on Social Informatics. Springer, 2014.
+\bibitem{} L. Ding, H. Fan, and L. Meng. Understanding Taxi Driving Behaviors from Movement Data. In AGILE 2015, pages 219–234. Springer, 2015.
+\bibitem{}B. Donovan and D. B. Work. Using coarse gps data to quantify city-scale transportation system resilience to extreme events. arXiv:1507.06011, 2015.
+\bibitem{}D. Falcone, C. Mascolo, C. Comito, D. Talia, and J. Crowcroft. What is this place? Inferring place categories through user patterns identification in geo-tagged tweets. In Int. Conference on Mobile Computing, Applications and Services, 2014.
+\bibitem{}N. Ferreira, J. Poco, H. T. Vo, J. Freire, and C. T. Silva. Visual exploration of big spatio-temporal urban data: A study of new york city taxi trips. Transactions On Visualization and Computer Graphics, 19(12):2149–2158, 2013.
+\bibitem{}L. Gabrielli, S. Rinzivillo, F. Ronzano, and D. Villatoro. From tweets to semantic trajectories: mining anomalous urban mobility patterns. In Citizen in Sensor Networks, pages 26–35. Springer, 2014.
+\bibitem{}L. Gauvin, A. Panisson, A. Barrat, and C. Cattuto. Revealing latent factors of temporal networks for mesoscale intervention in epidemic spread.
+\bibitem{}L. Gauvin, A. Panisson, and C. Cattuto. Detecting the community structure and activity patterns of temporal networks: a non-negative tensor factorization approach. PloS One, 9(1), 2014.
+\bibitem{}N. Hao, L. Horesh, and M. Kilmer. Nonnegative Tensor Decomposition. In Compressed Sensing \& Sparse Filtering, pages 123–148. Springer, 2014.
+\bibitem{}C. K. Vaca, D. Quercia, F. Bonchi, and P. Fraternali. Taxonomy-Based Discovery and Annotation of Functional Areas in the City. In Int. Conference on Web and Social Media, 2015.
+\bibitem{}J. L. Toole, M. Ulm, M. C. González, and D. Bauer. Inferring land use from mobile phone activity. In Int. Workshop on Urban Computing, 2012.
+\bibitem{}K. Takeuchi, R. Tomioka, K. Ishiguro, A. Kimura, and H. Sawada. Non-negative multiple tensor factorization. In Int. Conference on Data Mining, 2013.
+\bibitem{}C. Song, Z. Qu, N. Blumm, and A.-L. Barabási. Limits of predictability in human mobility. Science, 327(5968):1018–1021, 2010.
+\bibitem{}P. Singer, D. Helic, A. Hotho, and M. Strohmaier. HypTrails: A Bayesian Approach for Comparing Hypotheses About Human Trails on the Web. In Int. Conference on World Wide Web, 2015.
+\bibitem{}F. Simini, M. C. González, A. Maritan, and A.-L. Barabási. A universal model for mobility and migration patterns. Nature, 484(7392):96–100, 2012.
+\bibitem{}A. Sarkar, N. Lathia, and C. Mascolo. Comparing citiesâA˘ Z cycling patterns´ using online shared bicycle maps. Transportation, 42(4):1–19, 2015.
+\bibitem{}V. Salnikov, R. Lambiotte, A. Noulas, and C. Mascolo. OpenStreetCab: Exploiting Taxi Mobility Patterns in New York City to Reduce Commuter Costs. arXiv:1503.03021, 2015.
+\bibitem{}A. Noulas, B. Shaw, R. Lambiotte, and C. Mascolo. Topological Properties and Temporal Dynamics of Place Networks in Urban Environments. In Int. Conference on World Wide Web Companion, 2015.
+\bibitem{}A. Noulas, S. Scellato, C. Mascolo, and M. Pontil. An Empirical Study of Geographic User Activity Patterns in Foursquare. 2011.
+\bibitem{}A. Noulas, S. Scellato, R. Lambiotte, M. Pontil, and C. Mascolo. A tale of many cities: universal patterns in human urban mobility. PloS One, 7(5):e37027, 2012.
+\bibitem{}X. Liu, L. Gong, Y. Gong, and Y. Liu. Revealing daily travel patterns and city structure with taxi trip data. arXiv:1310.6592, 2013.
+\bibitem{}X. Li, G. Pan, Z. Wu, G. Qi, S. Li, D. Zhang, W. Zhang, and Z. Wang. Prediction of urban human mobility using large-scale taxi traces and its applications. Frontiers of Computer Science, 6(1):111–121, 2012.
+\bibitem{}Lenormand, Maxime and Gonçalves, Bruno and Tugores, Antònia and Ramasco, José J. Human diffusion and city influence. arXiv:1501.07788, 2015.
+\bibitem{}R. Jurdak, K. Zhao, J. Liu, M. AbouJaoude, M. Cameron, and D. Newth. Understanding Human Mobility from Twitter. arXiv:1412.2154, 2014.
+\bibitem{}S. Jiang, J. Ferreira, and M. C. González. Clustering daily patterns of human activities in the city. Data Mining and Knowledge Discovery, 25(3):478–510, 2012.
+\bibitem{}L. Wu, Y. Zhi, Z. Sui, and Y. Liu. Intra-urban human mobility and activity transition: evidence from social media check-in data. PloS One, 9(5), 2014.
+\bibitem{}K. Willis. Introduction: mobility, migration and development. Int. Development Planning Review, 32(3-4):i–xiv, 2010.
+\bibitem{}Yuan, J., Zheng, Y., Zhang, C., Xie, W., Xie, X., Huang, Y.:T-Drive: Driving Directions Based on Taxi Trajectories, in ACM SIGSPATIAL GIS 2010, Association for Computing Machinery, Inc., 1 (2010) 
+\bibitem{}Liu, L., Andris, C., Bidderman, A., Ratti, C.: Revealing taxi drivers mobility intelligence through his trace. Movement-Aware Applications for Sustainable Mobility: Technologies and Approaches pp. 105-120 (2010) 
+\bibitem{}C. Peng, X. Jin, K.-C. Wong, M. Shi, and P. Liò. Collective human mobility pattern from taxi trips in urban area. PloS One, 7(4):e34487, 2012.
+\bibitem{}F. Le Néchet. Urban spatial structure, daily mobility and energy consumption: a study of 34 european cities. Cybergeo: European Journal of Geography, 2012.
 
 \end{thebibliography}
 
