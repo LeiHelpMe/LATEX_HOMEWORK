@@ -1,0 +1,193 @@
+\documentclass[10pt, conference, compsocconf]{IEEEtran}
+\usepackage{CJK}
+
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+\begin{document}
+% \begin{CJK*}{GBK}{song}
+
+\title{Efﬁcient Crowd Sensing Task Distribution Through Context-aware NDN-based Geocast}
+
+\author
+{\IEEEauthorblockN{Rujun Guan}
+	\IEEEauthorblockA
+	{
+		School of Electrical and Control Engineering\\
+		Xi'an University of Science and Technology\\
+		Xi'an, China\\
+		guanrun@163.com
+	}
+}
+
+\maketitle
+
+\begin{abstract}
+	Crowd sensing exploits users’ smart devices and human mobility to collect information on a large scale. To realize a crowd sensing campaign, sensing tasks with spatio-temporal requirements are distributed to the devices  that  can  provide the requested information. Typically, the distribution of sensing tasks relies on a centralized communication infrastructure such as cloud servers. However, such an approach will be unsuitable if access to communication infrastructure is restricted, for example in disaster relief scenarios. To ﬁll this gap, we propose a distributed context-aware framework for disseminating sensing tasks, based on the Named Data Networking (NDN) paradigm. By adding context attributes to Interest packets, we allow a device to utilize this information to make forwarding decisions autonomously, thus guiding the sensing tasks towards the suitable sensing devices. Through intensive evaluation, we show that our framework achieves a timely delivery of sensing tasks, while keeping the communication overhead to a minimum compared  to pure geo forwarding and ﬂooding approaches.
+\end{abstract}
+
+\begin{IEEEkeywords}
+	Crowd Sensing, Opportunistic Forwarding, Named Data Networking.
+	
+\end{IEEEkeywords}
+
+\IEEEpeerreviewmaketitle
+
+\section{Introduction}
+Crowd sensing is a sensing paradigm that utilizes mobile devices to collect information [1]. Comparing to the Wireless Sensor Network (WSN) paradigm, crowd sensing allows for more ﬂexibility and enables monitoring of large scale phenom- ena through the mobility of the devices’ owners. One central problem of crowd sensing is to ﬁnd and to assign the sensing tasks to appropriate devices satisfying the requirements of a sensing campaign [2]. To solve this problem, most of the research work relies on a centralized platform to track potential participants [3]; using this, the task allocation can then be optimized. Nevertheless, the centralized approach  will  not  be suitable in case of impaired communication infrastructure or platform failures, for example in disaster relief scenarios, in which not all devices can be connected to the platform. Communication in disaster relief scenario is often based on opportunistic ad-hoc network techniques for disseminating information. Crowd sensing research, like the work by Zhao et al. [4], is also based on opportunistic ad-hoc networks to (re-)distribute sensing tasks among devices directly, aiming at solving the coverage problem. Still, the coverage problem is quite speciﬁc and focuses only on ﬁnding a sufﬁcient number of devices, thus assuming homogeneity. A distributed framework to disseminate sensing tasks without relying on a centralized platform is still missing.
+
+Recently, Named Data Networking (NDN) [5] has been proposed and recognized as a promising networking architecture for information retrieval solely based on content name. The usage and performance of NDN on wireless ad-hoc networks have been investigated and conﬁrmed by several works [6], [7]. Furthermore, Moreira et al. [8] also discuss and show the suitability of the NDN approach for crowd sensing in a decentralized opportunistic network. A device, called consumer, interested in receiving particular information can initiate and propagate an Interest packet through the network; and a device, called producer possessing the information matched with the request from the received Interest can reply with Data packets. Special characteristics of NDN such as in-network caching, ﬂexibility in naming content, and provider agnostic requests are desired features for crowd sensing. However, the mobility of producers still remains an unsolved challenge in NDN [9]. This problem is equivalent to the problem of disseminating the sensing task to appropriate mobile devices in crowd sensing, by forwarding tasks through opportunistic contacts of devices. Based on the NDN paradigm, our goal is to design   a framework to ensure decentralized dissemination of sensing tasks to suitable producers, considering mobility and spatiotemporal requirements of the tasks.
+
+The main contributions of this paper are threefold:
+
+•We design a system model and a corresponding NDN-based framework for distributed dissemination of sensing tasks, targeting opportunistic ad-hoc networks.
+
+•We integrate context information, such as distance attributes and packetsent counters, into Interest packets which allows individual devices to autonomously make forwarding decisions.
+
+•We design a context-aware forwarding concept to guide the sensing tasks towards the requested location and to search for capable producers.  Our  forwarding concept is inspired by virtual gradient ﬁelds for self-organizing network patterns.
+
+The rest of this paper is organized as follows. In Section II, we provide an overview of the related work. We discuss an application scenario and the system model in Section III.Our context-aware NDN forwarding concept is described in Section IV. Section V presents the results of the evaluation. Conclusion and several possible research directions for future work are presented in Section VI.
+
+
+\subsection{Subsection Heading Here}
+Subsection text here.
+
+
+\subsubsection{Subsubsection Heading Here}
+Subsubsection text here.
+
+\section{RELATED WORK}
+In this section, we review related work from two relevant research disciplines—opportunistic networks and NDN wireless ad-hoc networks.
+
+\subsection{Opportunistic Networks}
+With the proliferation of mobile devices and location based services, research on methods to disseminate information to geographical area—geocast for opportunistic networks has gained attention. GSAF [10] uses a set of coordinates to deﬁne a cast. Messages contained by nodes moving far away from cast region will be discarded if the buffer of such nodes are full or when the message life time expires. Tuncay et al. [11] use proﬁle-cast to recruit mobile nodes with a target proﬁle for opportunistic sensing. Sensing tasks are distributed to nodes, that satisfy part of the proﬁle, i.e, nodes do not necessarily have visited all requested locations. Geoopp [12] leverages the regularity in mobility pattern of humans to choose the nodes with best chance to move closer to the destination. These are nodes with their predicted future locations near the intended region. Geospray [13] is designed for vehicular delay-tolerant networks. Geospray utilizes both multiple-copies and single- copy opportunistic forwarding. It ﬁrst injects several copies of the message in order to spread the message over several paths; these messages will then be forwarded with only one copy towards the destination. Another scheme called approach and roam is proposed by Cao et al. [14]. Based on information of historical locations, this scheme estimates the ranges of mobile nodes and replicates messages only within this range. However compare to our approach, none of these aforementioned works deals directly with the unavailability of capable mobile nodes at requested geographical locations.
+
+
+\subsection{Named Data Networks}
+
+Recently, NDN has been studied on multihop wireless ad hoc networks, such as MANET, VANET. For information retrieval in such contexts, Interest packets are broadcast, which results in broadcast storm problem. Amadeo et al. [7],[15] propose a set of defer timers to minimize congestion. Geographical forwarding is not considered in these works. Deng et al. [16] consider two types of Interest, i.e., location-dependent and location-independent for forwarding in VANET. Nevertheless, the authors only consider a static producer in case of location-dependent forwarding, such as gas stations; while in our work, we speciﬁcally  target  mobile  producers. NDN-Q [17] is an NDN based query dissemination for vehicular networks, that exploits static Road Size Units to disseminate Interest to cars. Even though, NDN-Q architecture is comparable to our system model, NDN-Q relies only on pure broadcast. On the contrary, our forwarding approach is designed for geographical forwarding and is able reduce the overhead generated by pure broadcast remarkably. Similar to our approach, Kuai et al. [18] also aim to utilize opportunistic forwarding techniques in NDN for VANET. Their approach relies on a special beacon broadcast by neighbors to make forwarding decision, whereas in our approach we leverage only context attributes extracted from Interest packets. CODIE [19] focuses on data delivery for mobile consumer in vehicular NDN. The authors include hop count in Interest packet and a data dissemination limit in Data packet, that allows to control ﬂooding of Data packet. Since our main target is to ensure the forwarding of Interest packets as request to mobile producers and the main target of CODIE is to deliver Data packets as reply to mobile consumers, CODIE is complementary to our work. Rehman et al. [20] include distance information from Consumer to an Interest packet and check on an energy threshold on each node to decide on forwarding. In comparison, our work provides a more holistic view by utilizing both local and distributed context attributes for forwarding decision.
+
+\section{APPLICATION SCENARIO AND SYSTEM MODEL}
+
+In this section, we ﬁrst discuss the application for crowd sensing using a disaster relief scenario; this application scenario is representative for the challenges and the requirements of a distributed crowd sensing framework. Second, we elaborate on the assumptions we make for designing NDN-based crowd sensing, by targeting decentralized ad-hoc networks. Third, we introduce the system model designed according to the assumptions and the application scenario.
+
+\subsection{Application Scenario}
+
+A disaster relief scenario is a typical example for crowd sensing application. Sensing tasks, such as heat map generation, are distributed to participants to collect situational information. The situational information is useful for planning relief operations, such as to identify and to verify hot spots for planning and delegating relief workers, efﬁciently. Still, access to communication infrastructure might be restricted in a disaster situation. Consequently, the distribution of sensing tasks cannot be completed centrally. Devices in isolated areas can still exchange information through opportunistic ad-hoc networks. Moreover, based on store, carry and forward via opportunistic contacts, mobile devices can disseminate information to distant areas even though an end-to-end connection might not exist. As shown in [21], several devices belonging to relief workers may still have a connection to a head-quarter and can act as a gateway to inject sensing tasks into an isolated area. Thus, the ﬁrst objective is to exploit devices’ mobility to bring the sensing tasks injected through the gateway towards the area of interest (henceforth, AoI). Furthermore, due to heterogeneity and mobility of the devices, the availability of a capable device for a sensing task cannot be ensured. As a consequence, the second objective is to search for the capable devices that can perform the sensing tasks. In doing so, the requirements of the sensing tasks need to be satisﬁed.
+
+\section{NDN BASED CROWD SENSING}
+
+In this section, we give a detailed overview of our tasking framework for crowd sensing. First, we introduce the structure of the application naming scheme and the Interest packets. Second, we describe our approach for context-aware Interest forwarding. Third, we elaborate on the overall workﬂow to retrieve information by our framework.
+
+\subsection{Structure of Application Naming Scheme and Interest Packet}
+
+As introduced in Section III, our system model relies on gateways to transform the sensing tasks with their speciﬁc requirements into a NDN Interest packet. Wang et al. [2] summarize and discuss different dimensions for crowd sensing task’s requirements. According to them, a sensing task is characterized by 5 main dimensions—what to measure, where to mea- sure, when to measure, who to measure, and how to measure. Based on this observation, we decide on the naming scheme for our NDN based crowd sensing tasking framework as fol- lows: /CrowdSensing/<geographical information>/<sensor type>/<time>. <Geographical information> contains infor mation about the AoI, (i.e., longitude, latitude and its corresponding radius RAoI), in which  the  sensing  tasks  have  to be performed. We use the representation as introduced by Pesavento et al. [22] to encode the <geographical information> in our naming scheme. The authors propose to use Cantor pairing function [23] to encode a pair of coordinates (longitude, latitude) into a sequence of natural numbers. Adapting this representation into our naming scheme allows a sensing task to be matched efﬁciently against in-network cached data with regard to the geographical requirement. <Sensor type> indicates which type of information is being requested. Requested information might require the availability of a special sensor type on the sensing devices. <Time> indicates time related requirements, e.g., when to perform sensing (scheduling) or how often to perform sensing (frequency). The proposed naming scheme covers all dimensions required for crowd sensing and allows the NDN capable nodes to act according to the requirements.
+
+In general, an NDN network facilitates information retrieval by propagating an Interest packet through Faces deﬁned in the Forwarding Information Base (FIB) table[5]. However,   in decentralized opportunistic ad-hoc networks, the topology of the network is unstable  due  to  the  mobility  of  nodes.  An end-to-end path among nodes may not exist. Therefore, propagating Interest packets based on the FIB table is not possible for this type of network. Consequently, each Interest packet has to be  (re-)broadcast[18].  This  results  in an uncoordinated forwarding at each intermediate node. To alleviate this problem, we include context attributes of the current node into each Interest packet before broadcasting. Upon receiving an Interest packet, each node extracts the embedded context information, which is used to adapt current forwarding behavior. For our forwarding concept, we include distance of the current node to the requested AoI, maximum distance to the requested AoI from the gateway devices (as static consumers), and the number of Interest packets broadcast by the current node (cf. Figure 3). These three attributes will be used together with local attributes of the node (i.e., residual energy, speed and moving direction) to make forwarding decisions autonomously. Details on how these attributes are used, will be discussed in the next subsection.
+
+\subsection{Context-aware two-phases Forwarding}
+
+Our forwarding concept is inspired by self-organizing design patterns for distributed coordination among autonomous agents [24]. The basic idea is to utilize  a  virtual  gradient ﬁeld that will guide the Interest packet to capable mobile producers within the AoI. The gradient ﬁeld used in this paper is illustrated in Figure 2. We combine two gradient ﬁelds-a spread ﬁeld which aims to spread and push Interest packet ﬁrst far away from the request initiator; and an attract ﬁeld which aims to attract the Interest that comes nearer to the AoI. Such combination results in a direction ﬂow towards the AoI that the Interest packets will follow. Accordingly, our forwarding approach comprises two phases, i.e., the approach phase and the wait phase. The spread ﬁeld is applied for the approach phase, while the attract ﬁeld is applied for the wait phase.The wait phase is characterized by a buffer zone with the requested AoI being the center and a buffer zone radius RBZ , where RBZ RAoI since we want to increase the chance of reaching a mobile producer within the AoI. (In Figure 2, the buffer zone corresponds to the outermost circle of the Attract ﬁeld). Respectively, a node located outside the buffer zone is in approach phase. As soon as a node enters the buffer zone, its phase will be switched to the wait phase. Finding  the be challenging, since the topology of the network may change constantly and thus is not known to either tasking server or gateway devices, beforehand. In the evaluation, we empirically assess the effect of the buffer zone radius to study the trade-off between performance and overhead for our concept.
+
+The sensing task in form of an Interest packet is first initiated by the gateway devices acting as NDN consumers. In each Interest packet, the consumer includes its own distance to the AoI.
+
+he approach phase is activated otherwise. The pseudo code for the Interest packet processing in each phase is shown in Algorithm 1 and 2. In all phases, if a matched data can be found from the Content Store (CS) of an intermediate node, these data will be propagated directly back to the consumers.
+
+During the approach phase, before rebroadcasting an Interest packet, each intermediate node determines its current distance to the requested AoI and the current number of its total broadcast Interest packets. These attributes are included in the new Interest packet before broadcasting (cf. Figure 3).
+
+Upon receiving an Interest packet, a node extracts the distance of the previous node to the AoI from the Interest packet, then compares with its current distance to the AoI.Each node only rebroadcasts an Interest packet if all of the following conditions are met: 1) The current distance to the AoI is less than the distance of the previous node extracted from the Interest packet; 2) The node is either static or is moving towards the AoI. Choosing a static node binds an Interest packet at a ﬁxed location, which can be later forwarded to mobile nodes with higher chance to reach the AoI, i.e., nodes that move nearer to the AoI. Moving direction of mobile devices can be determined using built-in sensors such as accelerometer. In addition to the current distance to the AoI and moving direction, the residual energy and moving speed of the nodes are also accounted for. An energy threshold is set to make sure that the forwarders still have enough energy to reach the destination, and a speed threshold is set to ascertain that the Interest is forwarded in the fastest way. Altogether, these conditions ensure that the best forwarders are chosen.
+
+To schedule the propagation of Interest packet at the forwarder node Ni, we use the timer DTInt adapted from [7] as follows:
+
+\section{Conclusion} 
+The conclusion goes here. this is more of the conclusion
+
+\section*{Acknowledgment}
+The authors would like to thank...
+more thanks here
+
+\begin{thebibliography}{1}
+	
+	\bibitem{IEEEhowto:kopka}
+	H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
+	0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
+	
+	\bibitem{IEEEhowto:Ma}
+	H. Ma, D. Zhao, and P. Yuan, “Opportunities in Mobile Crowd Sensing,”IEEE Communications Magazine, vol. 52, pp. 29–35, 2014.
+	
+	\bibitem{IEEEhowto:Zhang}
+	D. Zhang, L. Wang, H. Xiong, and B. Guo, “4W1H in Mobile Crowd Sensing,” IEEE Communications Magazine, vol. 52, no. 8, pp. 42–48, 2014.
+	
+	\bibitem{IEEEhowto:Christin}
+	
+	D. Christin, A. Reinhardt, S. S. Kanhere, and M. Hollick, “A Survey    on Privacy in Mobile Participatory Sensing Applications,” Journal of Systems and Software, vol. 84, no. 11, pp. 1928–1946, 2011.
+	
+	\bibitem{IEEEhowto:Zhao}
+	
+	D. Zhao, H. Ma, and L. Liu, “Energy-efﬁcient opportunistic Coverage for People-centric Urban Sensing,” Wireless networks, vol. 20, no. 6, pp. 1461–1476, 2014.
+	
+	\bibitem{IEEEhowto:Afanasyev}
+	
+	L. Zhang, A. Afanasyev, J. Burke, V. Jacobson, P. Crowley, C. Pa- padopoulos, L. Wang, B. Zhang et al., “Named Data Networking,” ACM SIGCOMM Computer Communication Review, vol. 44, no. 3, pp. 66–73, 2014.
+	
+	\bibitem{IEEEhowto:Lu}
+	
+	Y. Lu, X. Li, Y.-T. Yu, and M. Gerla, “Information-centric Delay-tolerant Mobile Ad-hoc Networks,” in Computer Communications Workshops (INFOCOM Workshop). IEEE, 2014.
+	
+	\bibitem{IEEEhowto:Amadeo}
+	
+	M. Amadeo, C. Campolo,  and  A.  Molinaro,  “Forwarding  Strategies in Named Data Wireless Ad Hoc Networks: Design and Evaluation,” Journal of Network and Computer Applications, vol. 50, pp. 148–158, 2015.
+	
+	\bibitem{IEEEhowto:Moreira}
+	
+	W. Moreira and P. Mendes,  “Pervasive  Data  Sharing  as  an  Enabler for Mobile Citizen Sensing Systems,” IEEE Communications Magazine, vol. 53, no. 10, pp. 164–170, 2015.
+	
+	\bibitem{IEEEhowto:Rajaei}
+	
+	A. Rajaei, D. Chalmers, I. Wakeman, and G. Parisis, “GSAF: Efﬁcient and Flexible Geocasting for Opportunistic Networks,” in World of Wireless, Mobile and Multimedia Networks (WoWMoM). IEEE, 2016, pp. 1–9.
+	
+	\bibitem{IEEEhowto:Tuncay}
+	
+	G. S. Tuncay, G. Benincasa, and A. Helmy, “Autonomous and distributed Recruitment and Data Collection Framework for Opportunistic Sensing,” ACM SIGMOBILE Mobile Computing and Communications Review, vol. 16, no. 4, pp. 50–53, 2013.
+	
+	\bibitem{IEEEhowto:Liu}
+	
+	S. Lu and Y. Liu, “Geoopp: Geocasting for opportunistic Networks,” in Wireless Communications and Networking Conference (WCNC), 2014 IEEE. IEEE, 2014, pp. 2582–2587.
+	
+	\bibitem{IEEEhowto:Soares}
+	
+	V. N. Soares, J. J. Rodrigues, and F. Farahmand, “GeoSpray: A geographic Routing Protocol for Vehicular Delay-tolerant Networks,” Information Fusion, vol. 15, pp. 102–113, 2014.
+	
+	\bibitem{IEEEhowto:Cao}
+	
+	Y. Cao, Z. Sun, H. Cruickshank, and F. Yao, “Approach-and-Roam (AaR): A geographic Routing Scheme for Delay/Disruption Tolerant Networks,” IEEE transactions on Vehicular Technology, vol. 63, no. 1, pp. 266–281, 2014.
+	
+	\bibitem{IEEEhowto:Deng}
+	
+	G. Deng, X. Xie, L. Shi, and R. Li, “Hybrid Information Forwarding in VANETs through Named Data Networking,” in Personal, Indoor, and Mobile Radio Communications (PIMRC). IEEE, 2015.
+	
+	\bibitem{IEEEhowto:Kuai}
+	
+	M. Kuai, X. Hong, and Q. Yu, “Density-Aware Delay-Tolerant Interest Forwarding in Vehicular Named Data Networking,” in Vehicular Tech- nology Conference (VTC). IEEE, 2016.
+	
+	\bibitem{IEEEhowto:Ahmed}
+	
+	S. H. Ahmed, S. H. Bouk, M. A. Yaqub, D. Kim, H. Song, and J. Lloret, “CODIE: Controlled Data and Interest Evaluation in Vehicular Named Data Networks,” IEEE Transactions on Vehicular Technology, vol. 65, no. 6, pp. 3954–3963, 2016.
+	
+	\bibitem{IEEEhowto:Rehman}
+	
+	R. A. Rehman and K. Byung-Seo, “Location-Aware Forwarding and Caching in CCN-Based Mobile Ad Hoc Networks,” IEICE TRANSAC- TIONS on Information and Systems, vol. 99, no. 5, pp. 1388–1391, 2016.
+	
+	\bibitem{IEEEhowto:Nguyen}
+	
+	T.  A.  B.  Nguyen,  F.  Englert,  S.  Farr,  C.  Gottron,  D.  Bo¨hnstedt,  and R. Steinmetz, “Hybrid Communication Architecture for Emergency Response An Implementation in Fireﬁghter’s  Use  Case,”  in  Perva- sive Computing and Communication Workshops (PerCom Workshops). IEEE, 2015.
+	
+	\bibitem{IEEEhowto:Afanasyev}
+	
+	A. Afanasyev, I. Moiseenko, L. Zhang et al., “ndnSIM: NDN Simulator for NS-3,” University of California, Los Angeles, Tech. Rep, 2012.
+	
+
+\end{thebibliography}
+
+
+% \end{CJK*}
+\end{document}
