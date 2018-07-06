@@ -65,13 +65,12 @@ The area of study encompasses the Lisbon council, consisting of 53 parishes, an 
 
 The overall taxi service distribution in Lisbon can be seen in Fig.\ref{fig:my_png_1} where some major locations such as the city downtown (A), the airport (B), and the train station (C) are identified.  
 
-\begin{figure}[htbp]
+\begin{figure}[ht]
     \centering
     \subfigure[Pick-up locations]{
         \includegraphics[width=0.22\textwidth]{fig/png1_a.png}
     } 
     % \vspace{0.01cm}
-
     \subfigure[Drop-off locations]{
         \includegraphics[width=0.22\textwidth]{fig/png1_b.png}
     }
@@ -81,13 +80,12 @@ The overall taxi service distribution in Lisbon can be seen in Fig.\ref{fig:my_p
 
 The following figure shows the temporal variation of the taxi services. As expected, it gradually increases in the morning reaches the maximum between 11 a.m. and 1 p.m, and slowly drops down in the afternoon. In the working days, there are more taxi services than in the weekends with the maximum number of the services observed on Monday. 
 
-\begin{figure}[htbp]
+\begin{figure}[ht]
     \centering
     \subfigure[Hourly variation]{
         \includegraphics[width=0.22\textwidth]{fig/png2_a.png}
     } 
     % \vspace{0.01cm}
-
     \subfigure[Daily variation]{
         \includegraphics[width=0.22\textwidth]{fig/png2_b.png}
     }
@@ -110,14 +108,14 @@ The taxi dataset used in this paper comes from the Hangzhou City Traffic Bureau,
 
 \subsection{Data Cleaning and Preprocessing}
 Here we describe our data cleaning process. Based on our original dataset, a distribution of the trip distances is shown in Fig.\ref{fig:my_png_3}. We notice that that the realistic longest trips could be around 22km (one side of the city to the other), we thus discarded trips with distance greater than 30km. On the other hand, the original data also contains a great amount of trips with less than 200m (14.94\% of the all trips), which seems unrealistic. Therefore, in addition, we discarded these small trips from our analysis.  
-\begin{figure}[htbp]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=7cm]{fig/png3.png}
     \caption{ Distribution of trips distances. }
     \label{fig:my_png_3}
 \end{figure}
 The trip duration distribution is represented by the following figure. Similar to the trip distance distribution, we discarded trips that are less than one minute and longer than two hours. After the data cleaning process, we retained 177,169 trips and 217 distinct taxis. 
- \begin{figure}[htbp]
+ \begin{figure}[ht]
     \centering
     \includegraphics[width=7cm]{fig/png4.png}
     \caption{Distribution of trips duration. }
@@ -142,7 +140,7 @@ Get-on/off amounts’ temporal variation contains rich information regarding to 
 \subsection{City-wide Dynamics Analysis} For the city-wide statistics, the total get-on/off amount variation over days can reflect social meaning of some uncommon days such as holiday and school-open days.
 The total get-on/off amount in different days can highlight uncommon days that have important social activities (Fig. \ref{fig:my_label_1}). At the peak in August 2009, schools open and students come back to or freshman enters the school. During the Spring Festival, people may stay at home and seldom travel around by taxi. And, the decrease in the National Day is caused by traffic jam, since too many people may go outside during that day.
 
-\begin{figure}[htbp]
+\begin{figure}[ht]
     \centering
     \includegraphics{fig/f1.png}
     \caption{Illustration of city-wide dynamics: total get-on/off amount variation over different days.}
@@ -168,7 +166,7 @@ The analysis above confirms relationship between regional taxi get-on/off amount
     \label{eq:quadratic}
 \end{equation}
 
-\begin{figure}[htbp]
+\begin{figure}[ht]
     \centering
     \includegraphics{fig/png5.png}
     \caption{Distribution of trips distance (solid line) and fitted Gamma distribution (dashed line). }
@@ -177,7 +175,7 @@ The analysis above confirms relationship between regional taxi get-on/off amount
 
 If the first interval is removed, we can represent it with an exponential distribution, exp(λ) with λ = 0.26 (Fig. 6). The same phenomenon (exponential distribution) can also be observed for the trip duration and the trip income. 
 
-\begin{figure}[htbp]
+\begin{figure}[ht]
     \centering
     \includegraphics{fig/png6.png}
     \caption{Trip distance distribution without the first interval of the dataset (solid line) and fitted exponential distribution with λ = 0.26 (dashed line).}
@@ -189,21 +187,20 @@ If the first interval is removed, we can represent it with an exponential distri
 
 To confirm our observation, we examine mobile phone data collected from GSM networks. The GSM data consists of samples from November and December 2009 providing statistical measures of carried load (Erlang) with one-hour period. In Fig. \ref{fig:my_png_8}, we can observe that immediately after the taxi rush hour there is an increase of the GSM network usage in the airport, while the mobile phone activities in other locations of the city begins to arise three hours later. This is an indication of the possible taxi passengers at airport. 
 
-\begin{figure}[htbp]
+\begin{figure}[ht]
     \centering
     \subfigure[Hourly variation]{
-        \includegraphics[width=0.22\textwidth]{fig/png7_a.png}
+        \includegraphics[width=0.21\textwidth]{fig/png7_a.png}
     } 
     % \vspace{0.01cm}
-
     \subfigure[Daily variation]{
-        \includegraphics[width=0.22\textwidth]{fig/png7_b.png}
+        \includegraphics[width=0.21\textwidth]{fig/png7_b.png}
     }
     \caption{ TVariation of number of trips aggregated by hour. Left:  pick-up location from the airport. Right: pick-up from other locations. }
     \label{fig:my_png_7}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}[ht]
     \centering
     \includegraphics{fig/png8.png}
     \caption{GSM network usage aggregated by hour. }
@@ -213,7 +210,7 @@ To confirm our observation, we examine mobile phone data collected from GSM netw
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{SOCIAL FUNCTION RECOGNITION FOR REGIONS}%第五章
 Section IV confirms qualitatively the relationship between regional get-on/off amount and human activity intensity. In this section, we analyze quantitatively the relationship between get-on/off amount and regions’ social function. With a simple classification method, we recognize precisely regions’ social function and find corresponding get-on/off amount time domain patterns.
-\begin{figure}[htpb]
+\begin{figure}[ht]
     \centering
     \includegraphics{fig/f2.png}
     \caption{Illustration of variation of passengers get-off number over time for three region categories. The grayscale of color represents density of get-on/off number. Each row is for one region category: train station, scenic spot and entertainment districts (from top to bottom).}
@@ -225,7 +222,7 @@ Section IV confirms qualitatively the relationship between regional get-on/off a
 
 The time component is shown in Figure 1a, whereas location components for pickups (departures) and drop-offs (arrivals) are shown on the right-hand side of Fig. \ref{fig:my_png_9}. Due to space limitations we show only the first three clusters. From Fig. \ref{fig:my_png_9}, it can be observed that all clusters show strong daily regularities, which can be assumed as daily routines in human mobility behavior. Clusters C1,C2,C4,C5 andC7 capture all behaviors on workdays (almost all peaks are within the first five days of the week), whereas clusterC3 is strongly dominated by weekends, specially by Friday and Saturday nights. Cluster C6 on the other hand, shows a more periodical behavior across the entire week, however its peaks are around 6pm from Monday to Saturday and 2pm on Saturdays and Sundays.
 
-\begin{figure}[htpb]
+\begin{figure}[ht]
     \centering
     \includegraphics{fig/png9.png}
     \caption{Temporal distribution of clusters}
@@ -255,7 +252,7 @@ The time component is shown in Figure 1a, whereas location components for pickup
 
 \end{itemize}
 
-\begin{figure}[htbp]
+\begin{figure}
     \centering
     \subfigure[]{
         \includegraphics{fig/f3.png}
@@ -272,19 +269,18 @@ The time component is shown in Figure 1a, whereas location components for pickup
 
 We also reduce the dimension of feature vectors by the principal component analysis and visualize the regions in the 3D-Eigenspace. In Fig. \ref{fig:my_label_4}, samples with different region categories scatter apart from each other.
 
-\begin{figure}[thbp]
+\begin{figure}[htbp]
     \centering
     \includegraphics{fig/f6.png}
     \caption{Illustration of the labeled samples of three typical region categories in the 3D Eigenspace.}
     \label{fig:my_label_4}
 \end{figure}
-\begin{figure}[htbp]
+\begin{figure}[ht]
     \centering
     \includegraphics{fig/f7.png}
     \caption{Recognition performance of coarse-grained feature with varying data amount for training.}
     \label{fig:my_label_5}
 \end{figure}
-
 
 \subsubsection{ Recognition result and analysis}The recognition result is listed in Table I. Our method can recognize social function of the regions precisely. Moreover, there are some interesting conclusions we can get from this result: The tow types of features can be recognized more precisely with more data added. The recognition accuracy using coarse-grained feature grows quickly 5, while the accuracy using fine-grained feature changes slowly.
 
@@ -328,6 +324,8 @@ In this work, we have shown that spatio-temporal dynamics in human behavior can 
 
 \begin{itemize}
 
+\item Concentration parameter k. As discussed in [33], the HypTrails approach requires setting a parameter k to elicit Dirichlet priors from hypotheses. Higher values of k express stronger believes in the respective hypotheses. Technically, larger values of k imply higher values of the hyperparameters (pseudo counts) of the Dirichlet distributions. In our experiments, we tried several values of k from 0 to 100; overall very similar results. The reported results in this paper use an intermediate value of k = 10.
+\item Correlations in the explanations. Using HypTrails to explain clusters will not be able to identify causes of movement patterns, but only correlations. As an example, for Cluster C2 in our case study the Art Galleries hypothesis performs best. This of course does not mean that taxi trips in that cluster prominently have art galleries as destinations, but that people go to places that also have nearby art galleries. In that direction, we also intend to integrate a correlation analysis between the used hypotheses in future work in order to identify explanations that are similar to each other.
 \item Clustering method. In this paper, we use HypTrails to explain clusters obtained by Non-negative tensor factorization. While NTF is a reliable and established method in this line of research, the clustering approach is exchangeable and could be replaced by any other clustering technique.
 \item State space. Since our approach requires a discrete state space, it is necessary to aggregate pick-up and drop-off locations of the taxi rides in an area. The choice of these aggregational units (i.e., the states in our state space) can potentially influence the results. This is known in literature as the Modifiable areal unit problem. In this paper, we chose tracts for the level of our analysis as it allowed for the direct integration of information from census data. Experiments with different state spaces are subjects of future work.
 \item Multiple dimensions. In this paper, we cluster taxi trips with respect to time, pick-up and drop-off location. However, our approach allows to extend these by additional information, e.g., number of passengers. In this case, a higher dimensional tensor would be used by NTF, but the resulting clusters could also be explained with help of the HypTrails approach. The scale of these dimensions could also suggest more fine-grained mobility behaviors. For instance, in this work we defined the time dimension as all 168 hours of a week in order to distinguish patterns on workdays and weekends.
@@ -338,7 +336,6 @@ In this work, we have shown that spatio-temporal dynamics in human behavior can 
 This paper investigates the relationship between regional get-on/off amount and regions’ social function. Firstly, from a city scale, the get-on/off amount variation in a day or among different days conforms to social activity intensity of citizens. Secondly, from a qualitative view, regional get-on/off amount daily variations are very different in regions with different social functions.
 Based on the investigation, we develop a simple method to recognize regions’ social function. The preliminary results on a large-scale real-world taxi GPS data set show that our approach achieves recognition accuracy of 94.44%.
 There is still much further work to do in the work-inprogress. Firstly, our regions are rigid squares which may not represent a intact region in the city. Thus, we are going to develop new methods to get more natural regions. Secondly, we consider only three types of regions. More social function classes should be added and more regions should also be considered. Finally, we consider regions with pure social function in this paper while regions are more complicate in reality.
-
 
 Analyzing the taxi traces from Lisbon, Portugal during a period of five months, we are able to capture the spatiotemporal variation and observe that trip distance, duration, and income follow Gamma and Exponential distribution. We also examine taxi driving strategies where a combination of pick-up customers around the city and in fixed locations is observed. There are clearly rooms for improvements and further investigations for this preliminary study. As our future work, we will continue to investigate on how taxi traces can be useful for urban planning and transportation management. We will also explore into data visualization and multi-source data fusion – integrating taxi data with other public transportation such as bus, metro, and fleets as well as mobile phone data to better understand the mobility and flow of the city. 
 
